@@ -51,9 +51,13 @@ service:
 ## Here the version used is slightly modified version of 1.1.5 - this has been done to make it compatiable
 ## with biosdk 'develop' version.  TODO: Change this later
 image:
+  #registry: docker.io
+  #repository: mosipid/artifactory-server
+  #tag: 1.2.0.1-B7
   registry: docker.io
-  repository: mosipid/artifactory-server
-  tag: 1.2.0.1-B7
+  repository: niradocker/artifactory-server
+  tag: 0.0.1-nira
+
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -366,3 +370,4 @@ artifacts:
   virusscannerUrl: /artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
   authwrapperUrl: /artifactory/libs-release-local/idp/idp-auth-wrapper/authentication-wrapper.jar
   esignetauthwrapperUrl: /artifactory/libs-release-local/esignet/esignet-wrapper.zip
+  
