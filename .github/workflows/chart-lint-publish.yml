@@ -33,6 +33,7 @@ on:
       - '!release-branch'
       - master
       - 1.*
+      - 0.0.1-nira
       - develop
       - MOSIP*
       - release*
