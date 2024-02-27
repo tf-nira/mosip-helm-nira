@@ -1,0 +1,27 @@
+apiVersion: v1
+entries:
+  artifactory:
+  - apiVersion: v2
+    created: "2024-02-27T08:32:31.284547058Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Artifactory
+    digest: db61465deffe2ac8be832a49ee48862443ae4622c0ab4d81ef31124058d4594d
+    home: https://mosip.io
+    keywords:
+    - artifactory
+    - antivirus
+    - anti-virus
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: artifactory
+    type: application
+    urls:
+    - https://niratest.github.io/mosip-helm/artifactory-0.0.1-B3.tgz
+    version: 0.0.1-B3
+generated: "2024-02-27T08:32:31.283016516Z"
