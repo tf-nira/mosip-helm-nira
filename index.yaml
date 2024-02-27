@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   artifactory:
   - apiVersion: v2
-    created: "2024-02-27T08:32:31.284547058Z"
+    created: "2024-02-27T12:35:38.588082148Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -10,7 +10,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Artifactory
-    digest: db61465deffe2ac8be832a49ee48862443ae4622c0ab4d81ef31124058d4594d
+    digest: c345d7409184a26f65c79d7c562524c533e4e6d14c271cadbc6cea1094b5f197
     home: https://mosip.io
     keywords:
     - artifactory
@@ -24,4 +24,4 @@ entries:
     urls:
     - https://niratest.github.io/mosip-helm/artifactory-0.0.1-B3.tgz
     version: 0.0.1-B3
-generated: "2024-02-27T08:32:31.283016516Z"
+generated: "2024-02-27T12:35:38.586216122Z"
