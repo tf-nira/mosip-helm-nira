@@ -26,6 +26,30 @@ entries:
     version: 0.0.1-B3
   regclient:
   - apiVersion: v2
+    created: "2024-03-15T16:36:40.630299362Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart to installed Downloader for Regstration Client Application
+    digest: 19ddb88d4a2257a017aa764e142b3c60368f1d6db7b15c46790984c015595d28
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - regclient
+    - registration
+    - client
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: regclient
+    type: application
+    urls:
+    - https://niratest.github.io/mosip-helm/regclient-0.0.1-B4.tgz
+    version: 0.0.1-B4
+  - apiVersion: v2
     created: "2024-03-15T16:35:29.86168681Z"
     dependencies:
     - name: common
@@ -49,4 +73,4 @@ entries:
     urls:
     - https://niratest.github.io/mosip-helm/regclient-0.0.1-B3.tgz
     version: 0.0.1-B3
-generated: "2024-03-15T16:35:29.8581374Z"
+generated: "2024-03-15T16:36:40.62860503Z"
