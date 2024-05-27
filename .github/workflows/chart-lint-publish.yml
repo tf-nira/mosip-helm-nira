@@ -32,7 +32,7 @@ on:
     branches:
       - niradev-1.2.0.1-N1
     paths:
-      - 'charts/**'
+      - 'charts/landing-page/*'
 
 jobs:
   chart-lint-publish:
