@@ -1,11 +1,11 @@
-# Group 7 Stage
+# Payments Stage
 
-Helm chart for installing Registration Processor Group 7 stage.
+Helm chart for installing Registration Processor Payments stage.
 
 ## Install
 ```console
-$ kubectl create namespace regproc
-$ helm repo add mosip https://mosip.github.io
-$ helm -n regproc install my-release mosip/regproc-group7
+$ kubectl create namespace payments
+$ helm repo add nira https://niragit.github.io
+$ helm -n payments install my-release mosip/nira-payment-gateway
 ```
 
