@@ -30,12 +30,7 @@ on:
           - NO
   push:
     branches:
-      - '!release-branch'
-      - master
-      - 1.*
-      - develop
-      - MOSIP*
-      - release*
+      - niradev-1.2.0.1-N1
     paths:
       - 'charts/**'
 
@@ -44,7 +39,7 @@ jobs:
     uses: mosip/kattu/.github/workflows/chart-lint-publish.yml@master
     with:
       CHARTS_DIR: charts
-      CHARTS_URL: https://mosip.github.io/mosip-helm
+      CHARTS_URL: https://niragit.github.io/mosip-helm
       REPOSITORY: mosip-helm
       BRANCH: gh-pages
       INCLUDE_ALL_CHARTS: "${{ inputs.INCLUDE_ALL_CHARTS || 'NO' }}"
