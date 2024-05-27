@@ -10,7 +10,7 @@ on:
       IGNORE_CHARTS:
         description: 'Provide list of charts to be ignored separated by pipe(|)'
         required: false
-        default: ''        
+        default: ''
         type: string
       CHART_PUBLISH:
         description: 'Chart publishing to gh-pages branch'
@@ -32,7 +32,7 @@ on:
     branches:
       - niradev-1.2.0.1-N1
     paths:
-      - 'charts/landing-page/'
+      - 'charts/**'
 
 jobs:
   chart-lint-publish:
