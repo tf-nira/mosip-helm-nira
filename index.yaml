@@ -209,7 +209,8 @@ entries:
           tags:
             - bitnami-common
           version: 1.x.x
-      description: A Helm chart to deploy authdemo for MOSIP modules
+      description: >
+        A Helm chart to deploy authdemo for MOSIP modules
       digest: 59f6e9b56b3422a020101bfe6eb03524120e1c98f32e308eac9048940a7919bd
       home: https://mosip.io
       keywords:
@@ -218,8 +219,6 @@ entries:
       maintainers:
         - email: info@mosip.io
           name: MOSIP
-      name: authdemo
-      type: application
       urls:
         - https://niragit.github.io/mosip-helm/authdemo-12.0.1.tgz
       version: 12.0.1
