@@ -10,7 +10,7 @@ on:
       IGNORE_CHARTS:
         description: 'Provide list of charts to be ignored separated by pipe(|)'
         required: false
-        default: '""'
+        default: 'activemq-artemis | admin-hotlist | admin-service | admin-ui | apitestrig | artifactory | auditmanager | authdemo | authmanager | biosdk-service | clamav | conf-secrets | config-server | credential | credentialrequest | databreachdetector/templates | datashare | dslorchestrator | gc-util | ida-auth | ida-internal | ida-otp | identity | idgenerator | idrepo-saltgen | keycloak-init | keygen | keymanager | masterdata-loader | masterdata | minio-client-util | mock-abis | mock-mv | mock-smtp | mosip-file-server | notifier | opencrvs-mediator | otpmanager | packetcreator | packetmanager | partner-onboarder | pmp-ui | pms-migration-utility | pms-partner | pms-policy | postgres-init | postgres-upgrade | prereg-application | prereg-batchjob | prereg-booking | prereg-captcha | prereg-datasync | prereg-gateway | prereg-ui | pridgenerator | print | regclient | regproc-camel | regproc-group1 | regproc-group2 | regproc-group3 | regproc-group4 | regproc-group5 | regproc-group6 | regproc-group7 | regproc-notifier | regproc-opencrvs | regproc-pktserver | regproc-reprocess | regproc-salt | regproc-status | regproc-trans | regproc-workflow | reporting-init | reporting | resident-ui | resident | restart-cron | ridgenerator | softhsm | status-check | syncdata | tusd | uitestrig | vid | websub-consolidator | websub'
         type: string
       CHART_PUBLISH:
         description: 'Chart publishing to gh-pages branch'
