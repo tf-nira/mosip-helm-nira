@@ -873,7 +873,7 @@ entries:
     version: 12.0.1
   nira-payment-gateway:
   - apiVersion: v2
-    created: "2024-05-27T11:13:58.738150892Z"
+    created: "2024-05-27T11:33:28.577681989Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -881,7 +881,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Registration Processor Payments
-    digest: 99197bdf2ccc87f34da46a979a23dc86e7210d19d29837a19f8f24a6c26912c0
+    digest: 942db03b1296a8ee81577a5bc004fd1539663409c22cea2425c57d723da4af7f
     home: https://mosip.io
     keywords:
     - mosip
@@ -2174,4 +2174,4 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/websub-consolidator-12.0.1.tgz
     version: 12.0.1
-generated: "2024-05-27T11:13:58.736554559Z"
+generated: "2024-05-27T11:33:28.575534963Z"
