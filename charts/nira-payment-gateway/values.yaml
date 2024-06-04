@@ -370,7 +370,7 @@ metrics:
     prometheus.io/scrape: "true"
 
   endpointPathList:
-    - endpointPath: '/v1/payment/actuator/prometheus'
+    - endpointPath: '/swagger-ui/index.html'
       port_name: nira-payment-gateway
       port: 8083
       targetPort: 8083
