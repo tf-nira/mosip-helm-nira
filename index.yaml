@@ -1664,6 +1664,31 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/regproc-group7-12.0.1.tgz
     version: 12.0.1
+  regproc-group8:
+  - apiVersion: v2
+    created: "2024-06-11T10:49:21.427267572Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for NIRA Citizenship Verification Registration Processor
+      Group 8 stage
+    digest: 1676a5fb4a320e53a18d06983b1ac3bbffaa27e0bb761f0dfd418385cee942d3
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - regproc-group8
+    - regproc
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: regproc-group8
+    type: application
+    urls:
+    - https://niragit.github.io/mosip-helm/regproc-group8-12.0.1.tgz
+    version: 12.0.1
   regproc-notifier:
   - apiVersion: v2
     created: "2024-05-27T14:08:54.290943147+03:00"
@@ -2174,4 +2199,4 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/websub-consolidator-12.0.1.tgz
     version: 12.0.1
-generated: "2024-06-04T12:55:47.435106013Z"
+generated: "2024-06-11T10:49:21.425634822Z"
