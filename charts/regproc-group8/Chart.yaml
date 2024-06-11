@@ -1,5 +1,5 @@
 apiVersion: v2
-name: regproc-group2
+name: regproc-group8
 description: A Helm chart for NIRA Citizenship Verification Registration Processor Group 8 stage
 type: application
 version: 12.0.1
