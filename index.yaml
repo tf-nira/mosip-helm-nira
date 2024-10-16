@@ -22,6 +22,6 @@ entries:
     name: credential-minio-cleanup
     type: application
     urls:
-    - charts/credential-minio-cleanup/credential-minio-cleanup-12.0.1.tgz
+    - charts/credential-minio-cleanup-12.0.1.tgz
     version: 12.0.1
 generated: "2024-10-16T14:57:42.84631598+05:30"
