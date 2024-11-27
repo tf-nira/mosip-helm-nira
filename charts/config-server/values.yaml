@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -122,6 +122,44 @@ tolerations: []
 
 affinity: {}
 
+## Pod affinity preset
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAffinityPreset: ""
+
+## Pod anti-affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAntiAffinityPreset: soft
+
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+## Allowed values: soft, hard
+##
+nodeAffinityPreset:
+  ## Node affinity type
+  ## Allowed values: soft, hard
+  ##
+  type: ""
+  ## Node label key to match
+  ## E.g.
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  ## Node label values to match
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+
+## "backoff" strategy - It is used when dealing with resources that are retrying or recovering from failures.
+##
+backoffLimit: 0
+
 ## Git repository from where config server will read the properties etc.  This repo could public or private
 ## For private repos access token is required.
 ## version: branch/tag of the repo to be used
@@ -134,7 +172,27 @@ gitRepo:
   ## User name of user who has access to the private repo. Ignore for public repo
   username: ""
   token: ""
+  localRepo:
+    enabled: false
+    uri: "file:///home/mosip/config_repo/mosip-config"
+    path: /home/mosip/config_repo/
 
+persistence:
+  enabled: false
+  #storageClass: ''
+  accessModes:
+    - ReadOnlyMany
+  size: 150Mi
+  existingClaim:
+  # Dir where all incoming packets are stored
+  # Make sure this matches with what is given in the config properties
+  mountDir: /home/mosip/config_repo/
+  reclaimPolicy: Retain
+  storageclass: ''
+  nfs:
+    host:
+    path:
+    readOnly:
 
 # All env variables that are accessed from mosip config properties
 envVariables:

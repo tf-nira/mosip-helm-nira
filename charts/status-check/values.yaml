@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   registry: docker.io
   repository: mosipid/status-check
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.2.0.1
 

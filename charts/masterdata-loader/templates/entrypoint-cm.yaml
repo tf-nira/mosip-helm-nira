@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: entrypoint-cm
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    # entrypoint.sh 
+    
+    # set commands for error handling.
+    set -e
+    set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+    set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+    set -o errtrace  # trace ERR through 'time command' and other functions
+    set -o pipefail  # trace ERR through pipes
+
+    git clone $REPO_URL -b $BRANCH
+    
+    echo Uploading ..
+    cd lib
+    echo Running python upload ..
+    python upload_masterdata.py $DB_HOST $DB_PWD admin $XLS_FOLDER --db_user=$DB_USER --db_port=$DB_PORT --tables_file table_order
+    echo Masterdata uploaded successfully.
