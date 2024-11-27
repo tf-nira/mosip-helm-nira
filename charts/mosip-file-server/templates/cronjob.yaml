@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restart-deployments-cronjob
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  schedule: {{ .Values.crontime }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ template "mosipfileserver.serviceAccountName" . }}
+          containers:
+            - name: rollout-restart
+              image: bitnami/kubectl:latest # Ensure this image has `kubectl`
+              command:
+                - /bin/sh
+                - -c
+                - >
+                  kubectl rollout restart deployment --namespace={{ .Release.Namespace | quote }}
+          restartPolicy: OnFailure
