@@ -14,6 +14,9 @@ spec:
         sidecar.istio.io/inject: "false"
     spec:
       restartPolicy: Never  # This is one time job
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
       - name: debezium-init
         image: "{{ .Values.debezium_connectors.image }}:{{ .Values.debezium_connectors.imageTag }}"

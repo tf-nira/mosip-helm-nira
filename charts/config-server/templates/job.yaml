@@ -1,0 +1,110 @@
+{{- if .Values.gitRepo.localRepo }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: clone-config-repo
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  annotations:
+    #"helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "2"
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+    
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- end }}
+        sidecar.istio.io/inject: "false"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.hostAliases }}
+      hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" $) | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAffinityPreset "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" .Values.podAntiAffinityPreset "context" $) | nindent 10 }}
+        nodeAffinity: {{- include "common.affinities.nodes" (dict "type" .Values.nodeAffinityPreset.type "key" .Values.nodeAffinityPreset.key "values" .Values.nodeAffinityPreset.values) | nindent 10 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      {{- if .Values.podSecurityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.podSecurityContext.fsGroup }}
+        {{- if .Values.podSecurityContext.sysctls }}
+        sysctls:
+          {{- toYaml .Values.podSecurityContext.sysctls | nindent 8 }}
+        {{- end }}
+      {{- end }}
+      #serviceAccountName: {{ include "config-server.serviceAccountName" . }}
+      restartPolicy: Never  # This is one time job
+      containers:
+        - name: clone-config-repo
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: REPO_URL
+              value: {{ .Values.gitRepo.uri }}
+            - name: REPO_BRANCH
+              value: {{ .Values.gitRepo.version }}
+            - name: REPO_DESTINATION
+              value: {{ .Values.gitRepo.localRepo.path }}
+
+          {{- if .Values.extraEnvVars }}
+          {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+          {{- end }}
+          command: ["/bin/bash"]
+          args:
+            - "-c"
+            - "git clone $REPO_URL -b $REPO_BRANCH $REPO_DESTINATION && chown -R 1001:1001 $REPO_DESTINATION"
+          envFrom:
+            {{- if .Values.extraEnvVarsCM }}
+            {{- range .Values.extraEnvVarsCM }}
+            - configMapRef:
+                name: {{ . }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.extraEnvVarsSecret }}
+            - secretRef:
+                name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
+            {{- end }}
+          securityContext:
+            runAsNonRoot: false
+            readOnlyRootFilesystem: false
+            capabilities: {}
+            privileged: false
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+          volumeMounts:
+          {{- if .Values.persistence.enabled }}
+          - name: config-repo
+            mountPath: {{ .Values.persistence.mountDir }}
+          {{- end }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: config-repo
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "common.names.fullname" .) }}-pvc
+        {{ end }}
+{{- end }}

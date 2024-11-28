@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mosipid/masterdata-loader
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.2.0.1
 
@@ -84,3 +84,4 @@ db:
     key: db-dbuser-password
 
 mosipDataGithubBranch: 1.2.0.1-B1
+mosipDataGithubRepoUrl:
