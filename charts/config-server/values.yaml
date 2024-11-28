@@ -179,7 +179,7 @@ gitRepo:
 
 persistence:
   enabled: false
-  #storageClass: ''
+  # storageClass: ''
   accessModes:
     - ReadOnlyMany
   size: 150Mi
