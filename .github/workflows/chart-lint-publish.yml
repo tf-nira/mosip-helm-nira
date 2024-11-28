@@ -10,7 +10,7 @@ on:
       IGNORE_CHARTS:
         description: 'Provide list of charts to be ignored separated by pipe(|)'
         required: false
-        default: '""'
+        default: '"reporting|reporting-init"'
         type: string
       CHART_PUBLISH:
         description: 'Chart publishing to gh-pages branch'
