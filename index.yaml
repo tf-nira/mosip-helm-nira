@@ -33,6 +33,38 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/activemq-artemis-0.0.2.tgz
     version: 0.0.2
+  - apiVersion: v2
+    appVersion: 2.6.2
+    created: "2024-11-29T07:19:33.697786787Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: a multi-protocol, embeddable, very high performance, clustered, asynchronous
+      messaging system.
+    digest: d9be6767e80abd4950fa7b7a107731ae1aececd7af5da611ae2d54a7df908e29
+    home: https://activemq.apache.org/artemis/
+    icon: https://activemq.apache.org/assets/img/activemq_logo_icon.png
+    keywords:
+    - activemq
+    - artemis
+    - messaging
+    - mom
+    - amqp
+    - jms
+    - mqtt
+    maintainers:
+    - email: victor.romero@gmail.com
+      name: vromero
+    name: activemq-artemis
+    sources:
+    - https://github.com/kubernetes/charts
+    - https://github.com/apache/activemq-artemis
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/activemq-artemis-0.0.2-1.tgz
+    version: 0.0.2-1
   admin-hotlist:
   - apiVersion: v2
     created: "2024-05-27T14:08:53.915447394+03:00"
@@ -4064,4 +4096,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2024-11-29T07:14:42.976718147Z"
+generated: "2024-11-29T07:19:33.695530732Z"
