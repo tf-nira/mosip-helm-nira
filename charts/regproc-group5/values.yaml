@@ -76,7 +76,7 @@ startupProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health,http://localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -89,7 +89,7 @@ livenessProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health,http://localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 20
   periodSeconds: 30
   timeoutSeconds: 5
@@ -102,7 +102,7 @@ readinessProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http://localhost:8088/registrationprocessor/v1/packetvalidator/actuator/health,http://localhost:8089/registrationprocessor/v1/cmdvalidator/actuator/health,http://localhost:8093/registrationprocessor/v1/operatorvalidator/actuator/health,http://localhost:8094/registrationprocessor/v1/supervisorvalidator/actuator/health,http://localhost:8095/registrationprocessor/v1/introducervalidator/actuator/health,http://localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -393,6 +393,10 @@ metrics:
       port_name: introducervalidator
       port: 8095
       targetPort: 8095
+    - endpointPath: '/registrationprocessor/v1/legacy-data-validator/actuator/health/prometheus'
+      port_name: legacy-data-validator
+      port: 9002
+      targetPort: 9002
 
   ## Prometheus Service Monitor
   ## ref: https://github.com/coreos/prometheus-operator
