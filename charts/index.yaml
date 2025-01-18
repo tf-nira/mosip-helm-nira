@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   credential-minio-cleanup:
   - apiVersion: v2
-    created: "2024-10-16T16:38:27.62500532+05:30"
+    created: "2025-01-18T11:13:06.709886302+05:30"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -22,6 +22,30 @@ entries:
     name: credential-minio-cleanup
     type: application
     urls:
-    - credential-minio-cleanup-12.0.1.tgz
+    - https://mdminhaj88.github.io/mosip-helm-nira/charts/credential-minio-cleanup-12.0.1.tgz
     version: 12.0.1
-generated: "2024-10-16T16:38:27.622831155+05:30"
+  mvs-service:
+  - apiVersion: v2
+    created: "2025-01-18T11:13:06.712421391+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Admin module
+    digest: bb4b36513c92bad172d9ee1348fcd86afdde26d0c2115406520f813ec9c01f03
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-service
+    type: application
+    urls:
+    - https://mdminhaj88.github.io/mosip-helm-nira/charts/mvs-service-12.0.1.tgz
+    version: 12.0.1
+generated: "2025-01-18T11:13:06.697228184+05:30"
