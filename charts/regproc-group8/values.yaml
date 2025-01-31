@@ -52,8 +52,8 @@ service:
 
 image:
   registry: docker.io
-  repository: niradocker/registration-processor-stage-group-8
-  tag: niradev-1.2.0.1-N1
+  repository: niraqa/registration-processor-stage-group-8
+  tag: pre-production
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
