@@ -1,0 +1,101 @@
+apiVersion: v1
+entries:
+  mvs-service:
+  - apiVersion: v2
+    created: "2025-02-01T11:13:28.422422792+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Admin module
+    digest: 8b467e9bdf6f848ad1d621edc44ad2a6c2f1ce31b6f5ce77b8ed2757c613c7af
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-service
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/mvs-service-12.0.1.tgz
+    version: 12.0.1
+  mvs-ui:
+  - apiVersion: v2
+    created: "2025-02-01T11:13:28.423608454+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP MVS UI module
+    digest: 27bce4ddd7729273eff5198db6f72e8ab507a44efe0a1b0b32e2ff16f162033a
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-ui
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/mvs-ui-12.0.1.tgz
+    version: 12.0.1
+  regproc-group8:
+  - apiVersion: v2
+    created: "2025-02-01T11:13:28.424824524+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for NIRA Citizenship Verification Registration Processor
+      Group 8 stage
+    digest: bfccc63bf6ac59dbbb5a24b318d60225b6e6af22246e56bb3d7e17e3a09373c3
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - regproc-group8
+    - regproc
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: regproc-group8
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/regproc-group8-12.0.1.tgz
+    version: 12.0.1
+  regproc-group9:
+  - apiVersion: v2
+    created: "2025-02-01T11:13:28.426062662+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for NIRA Payment Validator Registration Processor Group
+      9 stage
+    digest: ac8f1f2be2cde1208f43e5ad32472beb28180eeca6f768505d389407dd3a5cf5
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - regproc-group9
+    - regproc
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: regproc-group9
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/regproc-group9-12.0.1.tgz
+    version: 12.0.1
+generated: "2025-02-01T11:13:28.42095015+05:30"
