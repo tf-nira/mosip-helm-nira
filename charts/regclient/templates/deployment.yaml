@@ -106,9 +106,7 @@ spec:
             - name: reg_client_docscan_impl_url_env
               value: {{ .Values.docscan_impl_url }}
             - name: reg_client_custom_impls_url_env
-              value: {{ .Values.regclient.custom_impls_url }}
-              
-            
+              value: {{ .Values.regclient.custom_impls_url }} 
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
             {{- end }}
