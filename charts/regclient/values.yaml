@@ -74,6 +74,9 @@ regclient:
   healthCheckUrl: http://api-internal.sandbox.mosip.net/v1/syncdata/actuator/health
   certificate: mosip_cer.cer
   signer_url: http://timestamp.comodoca.com/rfc3161
+  sdk_url: http://artifactory.artifactory:80/artifactory/libs-release-local/tech5/sdkDependency.zip
+  docscan_impl_url: https://www.dropbox.com/scl/fi/t78iq3idqq2ilwaro08w9/docscan.zip?rlkey=txp08xnxti4tzm8cdhsjjldf4&st=7nl9kcem&dl=0
+  custom_impls_url: http://artifactory.artifactory:80/artifactory/libs-release-local/impl/custom-impl.zip
 
 ## Port on which this particular spring service module is running.
 containerPort: 80
