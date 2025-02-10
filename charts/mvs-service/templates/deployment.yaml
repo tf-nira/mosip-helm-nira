@@ -29,8 +29,6 @@ spec:
         {{- end }}
     spec:
       serviceAccountName: {{ template "mvs-service.serviceAccountName" . }}
-      imagePullSecrets:
-        - name: {{ .Values.imagePullSecretName | default "dockerhub" }}
       {{- include "mvs-service.imagePullSecrets" . | nindent 6 }}
       {{- if .Values.hostAliases }}
       hostAliases: {{- include "common.tplvalues.render" (dict "value" .Values.hostAliases "context" $) | nindent 8 }}
