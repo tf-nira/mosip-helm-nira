@@ -400,7 +400,6 @@ metrics:
   ## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
   ##
 
-  imagePullSecretName: dockerhub
 
   prometheusRule:
     enabled: false
