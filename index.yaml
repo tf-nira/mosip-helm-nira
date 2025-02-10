@@ -1639,6 +1639,77 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/mosip-file-server-12.0.1-1.tgz
     version: 12.0.1-1
+  mvs-service:
+  - apiVersion: v2
+    created: "2025-02-10T15:29:30.378345842+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Admin module
+    digest: a2cb88cfec5f243511e9e61fc5fae39495bc4b68eb87e8a5cbbfac4fe8321b7b
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-service
+    type: application
+    urls:
+    - https://Dharanidharan04.github.io/mosip-helm-nira-/mvs-service-12.0.1.tgz
+    version: 12.0.1
+  - apiVersion: v2
+    created: "2025-02-10T15:29:30.400541772+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Admin module
+    digest: 65c86a4677acd52b08f56e2eb5b2cd6dbd14f24370a45b654752df02800530c3
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-service
+    type: application
+    urls:
+    - https://Dharanidharan04.github.io/mosip-helm-nira-/mvs-service/mvs-service-12.0.1.tgz
+    version: 12.0.1
+  mvs-ui:
+  - apiVersion: v2
+    created: "2025-02-10T15:29:30.384628622+05:30"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP MVS UI module
+    digest: b485f21cb91270b41843daee31ac2b9c07fab5069266a38688c77e1d0e037855
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - mvs
+    - kernel
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: mvs-ui
+    type: application
+    urls:
+    - https://Dharanidharan04.github.io/mosip-helm-nira-/mvs-ui-12.0.1.tgz
+    version: 12.0.1
   nira-payment-gateway:
   - apiVersion: v2
     created: "2024-06-04T12:55:47.437110154Z"
