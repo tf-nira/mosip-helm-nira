@@ -21,6 +21,9 @@ spec:
       securityContext:
         {{- toYaml .Values.jobSecurityContext | nindent 8 }}
       restartPolicy: Never  # This is one time job
+      {{- if $.Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" $.Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -33,7 +36,17 @@ spec:
               secretKeyRef:
                 name: {{ .Values.db.secret.name }}
                 key: {{ .Values.db.secret.key }}
-
           envFrom:
               - configMapRef:
                   name: env-config
+          volumeMounts:
+            - name: entrypoint-cm
+              mountPath: /home/mosip/entrypoint.sh
+              readOnly: true
+              subPath: entrypoint.sh
+
+      volumes:
+        - name: entrypoint-cm
+          configMap:
+            name: entrypoint-cm
+            defaultMode: 0777

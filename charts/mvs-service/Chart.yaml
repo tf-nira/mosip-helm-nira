@@ -2,7 +2,7 @@ apiVersion: v2
 name: mvs-service
 description: A Helm chart for MOSIP Admin module
 type: application
-version: 12.0.1
+version: 12.0.1-pre-production
 appVersion: ""
 dependencies:
   - name: common

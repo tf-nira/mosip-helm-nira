@@ -51,7 +51,7 @@ data:
         </div>
         <div class="w3-col l2 w3-center">
           <a href="https://{{ .Values.landing.keycloak }}">
-            <img src="https://www.keycloak.org/resources/images/keycloak_icon_512px.svg" style="height:80px">
+            <img src="https://www.keycloak.org/resources/images/logo.svg" width="200" height="85" />
             <p>Keycloak</p>
           </a>
         </div>
@@ -106,54 +106,14 @@ data:
           <a href="https://{{ .Values.landing.api }}/.well-known/">
             <p>.well-known</p>
           </a>
-          <a href="https://{{ .Values.landing.api }}/inji/">
-            <p>INJI</p>
-          </a>
           <a href="https://{{ .Values.landing.api }}/mosip-certs/">
             <p>MOSIP certs</p>
-          </a>
-        </div>
-        <div class="w3-col l2 w3-center">
-          <a href="https://{{ .Values.landing.compliance }}">
-          <img src="https://raw.githubusercontent.com/mosip/documentation/1.2.0/docs/_images/compliance-home-page.png" style="height:80px">            <p>COMPLIANCE</p>
-          </a>
-        </div>
-        <div class="w3-col l2 w3-center">
-          <a href="https://{{ .Values.landing.resident }}">
-             <img src="https://raw.githubusercontent.com/mosip/documentation/1.2.0/docs/_images/resident-home-page.png" style="height:80px">
-          <p>resident</p>
           </a>
         </div>
         <div class="w3-col l2 w3-center"><p></p></div> 
       </div>
       
       <!-- row 4 -->
-      <div class="w3-row-padding w3-padding-16">
-        <div class="w3-col l2 w3-center"><p></p></div> 
-        <div class="w3-col l2 w3-center">
-          <a href="https://{{ .Values.landing.esignet }}">
-             <img src="https://raw.githubusercontent.com/mosip/documentation/1.2.0/docs/_images/esignet-home-page.png" style="height:80px">
-             <p>esignet</p>
-          </a>
-        </div>
-        <div class="w3-col l2 w3-center">
-          <a href="https://{{ .Values.landing.healthservices }}">
-          <img src="https://raw.githubusercontent.com/mosip/documentation/1.2.0/docs/_images/healthservices.png" style="height:80px">
-          <p>Healthservices</p>
-          </a>
-        </div>
-    {{- if .Values.landing.smtp }}
-        <div class="w3-col l2 w3-center">
-          <a href="https://{{ .Values.landing.smtp }}">
-             <img src="https://raw.githubusercontent.com/mosip/documentation/1.2.0/docs/_images/smtp-home-page.png" style="height:80px">
-             <p>SMTP</p>
-          </a>
-        </div>
-    {{- end }}
-        <div class="w3-col l2 w3-center"><p></p></div>
-      </div>
-    
-      <!-- row 5 -->
       <div class="w3-row-padding w3-padding-16">
         <div class="w3-col l4 w3-center"><p></p></div> 
         <div class="w3-col l4 w3-left">
@@ -166,12 +126,6 @@ data:
                <tr>
                  <td>Internal API</td>
                  <td class="w3-monospace">https://{{ .Values.landing.apiInternal }}</td>
-               </tr>
-               <tr>
-                 <td>
-                   <img src="https://www.clipartmax.com/png/full/242-2423721_logo-postgresql.png" height="30px">
-                 </td>
-                 <td class="w3-monospace">{{ .Values.landing.postgres.host }}:{{ .Values.landing.postgres.port }}</td>
                </tr>
              </table>
           </div>

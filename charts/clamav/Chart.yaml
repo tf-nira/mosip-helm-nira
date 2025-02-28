@@ -1,20 +1,20 @@
 apiVersion: v2
-name: clamav
-description: A Helm chart for Clamav
-type: application
-version: 12.0.1
-appVersion: ""
-dependencies:
-  - name: common
-    repository: https://charts.bitnami.com/bitnami
-    tags:
-      - bitnami-common
-    version: 1.x.x
-home: https://mosip.io
-keywords:
-  - clamav
-  - antivirus
-  - anti-virus
+appVersion: "1.9"
+description: An Open-Source antivirus engine for detecting trojans, viruses, malware
+  & other malicious threats. Using Mailu docker image.
+home: https://www.clamav.net
+icon: https://www.clamav.net/assets/clamav-trademark.png
 maintainers:
-  - email: info@mosip.io
-    name: MOSIP
+- email: cdesaintmartin@wiremind.io
+  name: desaintmartin
+- email: amrini@wiremind.io
+  name: machine424
+- email: fminaud@wiremind.io
+  name: francoisminaud
+name: clamav
+sources:
+- https://github.com/wiremind/wiremind-helm-charts/tree/main/charts/clamav
+- https://github.com/Mailu/Mailu/tree/master/optional/clamav
+- https://hub.docker.com/r/mailu/clamav
+- https://github.com/Cisco-Talos/clamav-devel
+version: 2.4.1

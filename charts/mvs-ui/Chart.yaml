@@ -2,7 +2,7 @@ apiVersion: v2
 name: mvs-ui
 description: A Helm chart for MOSIP MVS UI module
 type: application
-version: 12.0.1
+version: 12.0.1-pre-production
 appVersion: ""
 dependencies:
   - name: common

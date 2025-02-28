@@ -109,7 +109,7 @@ index a363a8d..71eb5da 100644
 -  # tag: 2.11.0
 +  tag: 2.16.0
    # image.pullPolicy is the ActiveMQ Artemis image's pull policy
-   pullPolicy: Always
+   pullPolicy: IfNotPresent
    # image.pullSecrets optionally specify an array of imagePullSecrets.Secrets must be manually created in the namespace.
 @@ -17,7 +17,7 @@ artemisUser: artemis
  # artemisPassword sets the artemis admin user password

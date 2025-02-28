@@ -51,14 +51,14 @@ service:
 
 image:
   registry: docker.io
-  repository: technoforte2023/manual-verification-service
-  tag: tf_nira_dev
+  repository: niraqa/manual-verification-service
+  tag: pre-production
 
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -400,7 +400,7 @@ metrics:
   ##
 
   imagePullSecretName: dockerhub
-  
+
   prometheusRule:
     enabled: false
     additionalLabels: {}
@@ -426,4 +426,10 @@ istio:
         prefix: /v1/manual-verification-service
     - uri:
         prefix: /v1/manual-verification-service/swagger-ui
-  
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

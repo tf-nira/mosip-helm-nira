@@ -432,3 +432,10 @@ istio:
   gateways:
     - istio-system/internal
   prefix: /registrationprocessor/v1/payment-validator
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75
