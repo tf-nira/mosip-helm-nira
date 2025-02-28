@@ -7,7 +7,7 @@ replicaCount: 1
 
 image:
   repository: mosipid/softhsm
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v2"
 
@@ -77,13 +77,6 @@ additionalResources:
   ## Specify any JAVA_OPTS string here. These typically will be specified in conjunction with above resources
   ## Example: java_opts: "-Xms500M -Xmx500M"
   javaOpts: "-Xms750M -Xmx750M"
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
@@ -161,3 +154,10 @@ configuration: |-
   slots.mechanisms = ALL
   # If the library should reset the state on fork
   library.reset_on_fork = false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

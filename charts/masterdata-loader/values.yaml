@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: mosipid/masterdata-loader
-  pullPolicy: Always
+  repository: niraqa/masterdata-loader
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 1.2.0.1
+  tag: pre-production
 
 imagePullSecrets: []
 nameOverride: ""
@@ -84,3 +84,11 @@ db:
     key: db-dbuser-password
 
 mosipDataGithubBranch: 1.2.0.1-B1
+mosipDataGithubRepoUrl:
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

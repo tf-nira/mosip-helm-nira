@@ -24,7 +24,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "config-server.serviceAccountName" . }}
+      #serviceAccountName: {{ include "config-server.serviceAccountName" . }}
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
@@ -86,6 +86,11 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: config-repo
+              mountPath: {{ .Values.persistence.mountDir }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -98,3 +103,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: config-repo
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "common.names.fullname" .) }}-pvc
+        {{ end }}

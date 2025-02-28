@@ -20,6 +20,9 @@ spec:
       securityContext:
         {{- toYaml .Values.jobSecurityContext | nindent 8 }}
       restartPolicy: Never  # This is one time job
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

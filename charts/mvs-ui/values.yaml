@@ -51,14 +51,14 @@ service:
 
 image:
   registry: docker.io
-  repository: technoforte2023/manual-verification-system-ui
-  tag: tf_nira_dev
+  repository: niraqa/manual-verification-system-ui
+  tag: pre-production
 
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -420,7 +420,7 @@ metrics:
 ## CAUTION: Domain name to acess Admin UI must be secure/internal/over vpn.
 ## Slash is important!
 mvs:
-  apiUrl: https://mvs.sandbox.mosip.net/
+  apiUrl: https://api-internal.sandbox.mosip.net/v1/
 ## Admin UI swagger should have only internal access. Hence linked to internal gateway
 ## We create a gateway for admin specific URL(s) listed under `hosts`
 istio:
@@ -432,3 +432,10 @@ istio:
   hosts:
     - mvs.sandbox.xyz.net
   prefix: /
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

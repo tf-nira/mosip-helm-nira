@@ -20,4 +20,5 @@ data:
   DML_FLAG: {{ .Values.databases.mosip_digitalcard.dml | quote }}
   GIT_REPO_URL: {{ .Values.databases.mosip_digitalcard.repoUrl | quote }}
   GIT_BRANCH: {{ .Values.databases.mosip_digitalcard.branch | quote }}
+  DEFAULT_DB_NAME: {{ .Values.databases.mosip_digitalcard.default_db_name | quote }}
 {{- end }}

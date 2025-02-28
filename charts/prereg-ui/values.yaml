@@ -52,13 +52,13 @@ service:
 
 image:
   registry: docker.io
-  repository: mosipid/pre-registration-ui
-  tag: 1.2.0.1
+  repository: niraqa/pre-registration-ui
+  tag: pre-production
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -316,7 +316,7 @@ volumePermissions:
     registry: docker.io
     repository: bitnami/bitnami-shell
     tag: "10"
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -420,3 +420,10 @@ istio:
   gateways:
     - prereg-gateway
   prefix: /pre-registration-ui
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

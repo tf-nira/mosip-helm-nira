@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mosipid/keycloak-init
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.2.0.1
 imagePullSecrets: []
@@ -204,7 +204,6 @@ keycloak:
         - SUBSCRIBE_AUTH_TYPE_STATUS_UPDATE_ACK_GENERAL
         - SUBSCRIBE_AUTH_TYPE_STATUS_UPDATE_INDIVIDUAL
         - SUBSCRIBE_CA_CERTIFICATE_UPLOADED_GENERAL
-        - SUBSCRIBE_CARD_NUMBER_UPDATE_GENERAL
         - SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL
         - SUBSCRIBE_CREDENTIAL_STATUS_UPDATE_GENERAL
         - SUBSCRIBE_DEACTIVATE_ID_INDIVIDUAL
@@ -572,7 +571,6 @@ keycloak:
           saroles:
             - PUBLISH_DEACTIVATE_ID_ALL_INDIVIDUAL
             - SUBSCRIBE_VID_CRED_STATUS_UPDATE_GENERAL
-            - SUBSCRIBE_CARD_NUMBER_UPDATE_GENERAL
             - ID_REPOSITORY
             - PUBLISH_ACTIVATE_ID_ALL_INDIVIDUAL
             - offline_access

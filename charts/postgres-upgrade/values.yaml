@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mosipid/postgres-upgrade
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.2.0.1
 
@@ -94,3 +94,10 @@ database:
     su_password: ''
   dbu:
     dbu_password: ''
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
+  targetMemoryUtilizationPercentage: 75

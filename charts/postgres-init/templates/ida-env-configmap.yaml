@@ -20,4 +20,5 @@ data:
   DML_FLAG: {{ .Values.databases.mosip_ida.dml | quote }}
   GIT_REPO_URL: {{ .Values.databases.mosip_ida.repoUrl | quote }}
   GIT_BRANCH: {{ .Values.databases.mosip_ida.branch | quote }}
+  DEFAULT_DB_NAME: {{ .Values.databases.mosip_ida.default_db_name | quote }}
 {{- end }}

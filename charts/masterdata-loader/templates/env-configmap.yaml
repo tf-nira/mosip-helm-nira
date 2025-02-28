@@ -16,3 +16,4 @@ data:
   DB_PORT: {{ .Values.db.port | quote }}
   DB_USER: {{ .Values.db.user | quote }}
   BRANCH: {{ .Values.mosipDataGithubBranch | quote }}
+  REPO_URL: {{ .Values.mosipDataGithubRepoUrl | quote }}

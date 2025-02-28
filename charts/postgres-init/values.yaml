@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: mosipid/postgres-init
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 1.2.0.1
 
@@ -312,3 +312,16 @@ databases:
     dml: 1
     repoUrl: https://github.com/mosip/esignet-mock-services.git
     branch: 0.9.0
+
+  mosip_mvs:
+    enabled: false
+    host: "postgres-postgresql"
+    port: 5432
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgres-password
+    dml: 0
+    repoUrl: https://github.com/tf-nira/manual-verification-service.git
+    branch: tf_nira_dev
