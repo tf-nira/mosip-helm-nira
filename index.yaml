@@ -35,7 +35,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 2.6.2
-    created: "2025-03-03T06:21:28.364176355Z"
+    created: "2025-03-05T09:52:53.737692682Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -44,7 +44,7 @@ entries:
       version: 1.x.x
     description: a multi-protocol, embeddable, very high performance, clustered, asynchronous
       messaging system.
-    digest: d4162e8a84c02595f64f9d3f53e5cfd5a304db847e0720219b5f9a60a603876b
+    digest: 09c223992e2410cd63a4e80f7959d9d6a03ea241eb8d88327db6db9349f5fed5
     home: https://activemq.apache.org/artemis/
     icon: https://activemq.apache.org/assets/img/activemq_logo_icon.png
     keywords:
@@ -6089,4 +6089,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-03-03T06:21:28.361292548Z"
+generated: "2025-03-05T09:52:53.736066972Z"
