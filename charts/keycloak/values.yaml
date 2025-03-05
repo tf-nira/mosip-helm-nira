@@ -931,6 +931,20 @@ postgresql:
     database: bitnami_keycloak
     existingSecret: ""
   architecture: standalone
+  primary:
+    startupProbe:
+      enabled: true
+      failureThreshold: 30
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+      exec:
+        command:
+        - /bin/sh
+        - -c
+        - exec pg_isready -U "bn_keycloak" -d "dbname=bitnami_keycloak" -h 127.0.0.1 -p 5432
+
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
