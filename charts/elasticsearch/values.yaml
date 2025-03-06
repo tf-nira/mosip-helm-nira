@@ -361,12 +361,12 @@ master:
   ## @param master.startupProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded
   ##
   startupProbe:
-    enabled: false
-    initialDelaySeconds: 90
+    enabled: true
+    initialDelaySeconds: 120
     periodSeconds: 10
     timeoutSeconds: 5
     successThreshold: 1
-    failureThreshold: 5
+    failureThreshold: 30
   ## Elasticsearch master-eligible container's liveness probe
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param master.livenessProbe.enabled Enable/disable the liveness probe (master-eligible nodes pod)
@@ -710,12 +710,12 @@ coordinating:
   ## @param coordinating.startupProbe.successThreshold Minimum consecutive successes for the probe to be considered successful after having failed (coordinating nodes pod)
   ##
   startupProbe:
-    enabled: false
-    initialDelaySeconds: 90
+    enabled: true
+    initialDelaySeconds: 120
     periodSeconds: 10
     timeoutSeconds: 5
     successThreshold: 1
-    failureThreshold: 5
+    failureThreshold: 30
   ## Elasticsearch coordinating-only container's liveness probe
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param coordinating.livenessProbe.enabled Enable/disable the liveness probe (coordinating-only nodes pod)
@@ -954,12 +954,12 @@ data:
   ## @param data.startupProbe.successThreshold Minimum consecutive successes for the probe to be considered successful after having failed (data nodes pod)
   ##
   startupProbe:
-    enabled: false
-    initialDelaySeconds: 90
+    enabled: true
+    initialDelaySeconds: 120
     periodSeconds: 10
     timeoutSeconds: 5
     successThreshold: 1
-    failureThreshold: 5
+    failureThreshold: 30
   ## Elasticsearch data container's liveness probe
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param data.livenessProbe.enabled Enable/disable the liveness probe (data nodes pod)
