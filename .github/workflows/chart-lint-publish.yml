@@ -37,7 +37,7 @@ on:
 
 jobs:
   chart-lint-publish:
-    uses: syedsalman3753/kattu/.github/workflows/chart-lint-publish.yml@master
+    uses: mosip/kattu/.github/workflows/chart-lint-publish.yml@master
     with:
       CHARTS_DIR: charts
       CHARTS_URL: https://tf-nira.github.io/mosip-helm-nira
@@ -48,7 +48,7 @@ jobs:
       CHART_PUBLISH: "${{ inputs.CHART_PUBLISH || 'YES' }}"
       LINTING_CHART_SCHEMA_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/chart-schema.yaml"
       LINTING_LINTCONF_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/lintconf.yaml"
-      LINTING_CHART_TESTING_CONFIG_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/chart-testing-config.yaml"
+      LINTING_CHART_TESTING_CONFIG_YAML_URL: "https://raw.githubusercontent.com/syedsalman3753/kattu/master/.github/helm-lint-configs/chart-testing-config.yaml"
       LINTING_HEALTH_CHECK_SCHEMA_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/health-check-schema.yaml"
     secrets:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
