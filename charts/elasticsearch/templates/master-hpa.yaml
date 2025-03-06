@@ -32,7 +32,6 @@ spec:
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.master.autoscaling.targetMemory }}
         target:
           type: Utilization
           averageUtilization: {{ .Values.master.autoscaling.targetMemory }}
