@@ -93,27 +93,27 @@ livenessProbe:
   initialDelaySeconds: 300
   periodSeconds: 10
   failureThreshold: 3
-  timeoutSeconds: 1
+  timeoutSeconds: 5
 
 readinessProbe:
   initialDelaySeconds: 90
   periodSeconds: 10
   failureThreshold: 3
-  timeoutSeconds: 1
+  timeoutSeconds: 5
 
 startupProbe:
-  initialDelaySeconds: 120
+  initialDelaySeconds: 180
   periodSeconds: 10
-  failureThreshold: 3
-  timeoutSeconds: 1
+  failureThreshold: 30
+  timeoutSeconds: 5
 
 hpa:
   enabled: true
-  maxReplicas: 5
+  maxReplicas: 3
   # average total CPU usage per pod (1-100)
   cpu: 80
   # average memory usage per pod (100Mi-1Gi)
-  # memory: "1000Mi"
+  memory: "1000Mi"
   # requests: "500m"
 
 podDisruptionBudget:
