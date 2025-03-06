@@ -1994,6 +1994,40 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/keymanager-12.0.1-1.tgz
     version: 12.0.1-1
+  kibana:
+  - annotations:
+      category: Analytics
+    apiVersion: v2
+    appVersion: 7.17.2
+    created: "2025-03-06T14:13:35.844507784Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: Kibana is an open source, browser based analytics and search dashboard
+      for Elasticsearch. Kibana strives to be easy to get started with, while also
+      being flexible and powerful.
+    digest: 0432ec68ddb1ef197bf179ce8d742db32c5ca1a75a482501ee26bb1e6317059c
+    home: https://github.com/bitnami/charts/tree/master/bitnami/kibana
+    icon: https://bitnami.com/assets/stacks/kibana/img/kibana-stack-220x234.png
+    keywords:
+    - kibana
+    - analytics
+    - monitoring
+    - metrics
+    - logs
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: kibana
+    sources:
+    - https://github.com/bitnami/bitnami-docker-kibana
+    - https://www.elastic.co/products/kibana
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/kibana-9.3.15.tgz
+    version: 9.3.15
   landing-page:
   - apiVersion: v2
     created: "2024-05-27T14:08:54.070436613+03:00"
@@ -6124,4 +6158,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-03-06T08:34:50.988701628Z"
+generated: "2025-03-06T14:13:35.841638745Z"
