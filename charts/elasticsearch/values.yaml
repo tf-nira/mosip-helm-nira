@@ -23,6 +23,7 @@ global:
 
 ## @section Common parameters
 
+
 ## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
 ##
 nameOverride: ""
