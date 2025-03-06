@@ -5,7 +5,7 @@ appVersion: 7.17.2
 dependencies:
 - condition: global.kibanaEnabled
   name: kibana
-  repository: https://charts.bitnami.com/bitnami
+  repository: https://tf-nira.github.io/mosip-helm-nira
   version: 9.x.x
 - name: common
   repository: https://charts.bitnami.com/bitnami
