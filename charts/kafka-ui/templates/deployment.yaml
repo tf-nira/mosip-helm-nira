@@ -84,7 +84,8 @@ spec:
               port: http
             initialDelaySeconds: 60
             periodSeconds: 30
-            timeoutSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           readinessProbe:
             httpGet:
               {{- $contextPath := .Values.envs.config.SERVER_SERVLET_CONTEXT_PATH | default "" | printf "%s/actuator/health" | urlParse }}
@@ -92,7 +93,17 @@ spec:
               port: http
             initialDelaySeconds: 60
             periodSeconds: 30
-            timeoutSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          startupProbe:
+            httpGet:
+              {{- $contextPath := .Values.envs.config.SERVER_SERVLET_CONTEXT_PATH | default "" | printf "%s/actuator/health" | urlParse }}
+              path: {{ get $contextPath "path" }}
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- if or .Values.yamlApplicationConfig .Values.volumeMounts .Values.yamlApplicationConfigConfigMap}}
