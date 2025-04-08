@@ -1854,7 +1854,7 @@ entries:
     version: 12.0.1
   - apiVersion: v2
     appVersion: 1.2.0
-    created: "2025-03-03T06:21:28.402857801Z"
+    created: "2025-04-08T13:55:41.211074568Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1863,7 +1863,7 @@ entries:
       version: 1.x.x
     description: A Helm chart for Kubernetes to initialize Keycloak  (updating for
       test)
-    digest: 36b34cc431e316aae1870893b0b875b42f9bc8101998a68ad9d2e9c0852e2fb9
+    digest: c37732c1baefaf551384d15414d194d180e05c2685771b6a5797840e23c7302d
     home: https://mosip.io
     keywords:
     - keycloak
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-03-07T09:50:20.032307575Z"
+generated: "2025-04-08T13:55:41.208498246Z"
