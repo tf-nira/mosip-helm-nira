@@ -1143,7 +1143,7 @@ entries:
     - https://niragit.github.io/mosip-helm/datashare-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.388291699Z"
+    created: "2025-04-24T07:34:16.234984937Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1151,7 +1151,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Datashare module
-    digest: 01ff3762618e0940157f863fbeb0ef214b95209d2f3ebcae128c718588d5072f
+    digest: c38e2b662c10886a1e8b4fe194b4ebc519ab29a8e8fa04546579611d23b26400
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:32:05.5989904Z"
+generated: "2025-04-24T07:34:16.233383802Z"
