@@ -1452,7 +1452,7 @@ entries:
     - https://niragit.github.io/mosip-helm/ida-internal-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.394537235Z"
+    created: "2025-04-24T07:37:22.12201647Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1460,7 +1460,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP IDA module
-    digest: b2cbb4468905e78ccd29e6f893094a225a59b6c096e3136133557ee06beef632
+    digest: 4ed38e576a1ebbf479560fd79e46725362e1ebad4ceb643353ae6e5738c74dc2
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:35:55.079308241Z"
+generated: "2025-04-24T07:37:22.120380595Z"
