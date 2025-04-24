@@ -5374,7 +5374,7 @@ entries:
     - https://niragit.github.io/mosip-helm/regproc-workflow-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.482444792Z"
+    created: "2025-04-24T07:32:05.600706731Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -5382,7 +5382,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Registration Processor Workflow Manager
-    digest: edce52894ab1ca9a17fc588debc4fc02c736e37885cc8a9365dad0c520b3d2d3
+    digest: 150e03cd2faee40d40161927669d9ec2d16dacbe743398bd83b738edc365ea2c
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:29:57.715839462Z"
+generated: "2025-04-24T07:32:05.5989904Z"
