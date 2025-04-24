@@ -6162,7 +6162,7 @@ entries:
     - https://niragit.github.io/mosip-helm/websub-consolidator-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.500393694Z"
+    created: "2025-04-24T07:53:01.473881664Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -6170,7 +6170,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for Websub Cconsolidator
-    digest: 17978f68698b977a7d1091a1719782c4eaa52d4cd4a270c9b95f8988aaa6ca50
+    digest: 832203d0cc7e72d6078ee1aff04b7a9ae21cb27aaff5faa66b39546d97fdd10f
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:51:48.722473007Z"
+generated: "2025-04-24T07:53:01.472239806Z"
