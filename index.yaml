@@ -4875,7 +4875,7 @@ entries:
     - https://niragit.github.io/mosip-helm/regproc-notifier-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.472255899Z"
+    created: "2025-04-24T07:24:05.764153917Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -4883,7 +4883,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Registration Processor Notification Service
-    digest: 5fbd1983289a53d7205ef01d83af7ee196efa794ceea2156051386cec9c962bc
+    digest: 77447b82c5612c170d7c1c3e4fc18e5e66ac3dded2a195bd742102d653563dfe
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:21:40.394100216Z"
+generated: "2025-04-24T07:24:05.762580873Z"
