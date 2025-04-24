@@ -702,7 +702,7 @@ entries:
     - https://niragit.github.io/mosip-helm/biosdk-service-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.378182762Z"
+    created: "2025-04-24T07:48:14.951656487Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -710,7 +710,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Auditmanager module
-    digest: b9f4a60145e8995cd2afc8f1d51126bf035b9e3d6d8fbc6bc65a36af330894fa
+    digest: c3aba4420bb69e8f411dc64169dd2eb61bab33aa557102c1e0e761936530001a
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:46:47.307941318Z"
+generated: "2025-04-24T07:48:14.949997187Z"
