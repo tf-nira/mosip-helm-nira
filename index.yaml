@@ -3250,7 +3250,7 @@ entries:
     - https://niragit.github.io/mosip-helm/pms-policy-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.437411351Z"
+    created: "2025-04-24T07:40:40.546798067Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -3258,7 +3258,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Packetmanager module
-    digest: 063180a561d71ef51f2aeb0e3370d9819437327c8dd1e60f7dcf64e8e2323c03
+    digest: 72590079fb65d3fa530c3102d6b8244ec4c4571085a0651c0da48ba468803d69
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:38:52.942020043Z"
+generated: "2025-04-24T07:40:40.545136025Z"
