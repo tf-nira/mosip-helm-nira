@@ -122,7 +122,7 @@ entries:
     - https://niragit.github.io/mosip-helm/admin-hotlist-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.365654587Z"
+    created: "2025-04-24T07:51:48.724931946Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -130,7 +130,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for MOSIP Admin Hotlist
-    digest: 80930c897b89e4fce9143c0874429379717c3ab0b7fcbbf07f376a786939d6ad
+    digest: f61ed31c04ccbb90a532e66bf6e7156a478ddd90286a3f958dd5e3b90f47643c
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:50:09.094465474Z"
+generated: "2025-04-24T07:51:48.722473007Z"
