@@ -4023,7 +4023,7 @@ entries:
     - https://niragit.github.io/mosip-helm/print-service-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2025-03-03T06:21:28.453518423Z"
+    created: "2025-04-24T07:45:24.225215842Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -4031,7 +4031,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart for sample Print Service
-    digest: 22830c38afd2aa165c289ab5652d7abf56aa8a630ee7c76934f132a6e4179790
+    digest: 7e6f67d08d2b342d4d65f1c23797559c4fe553efde3a2eed4fd0e8451567f1d1
     home: https://mosip.io
     keywords:
     - mosip
@@ -6207,4 +6207,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:42:16.765901502Z"
+generated: "2025-04-24T07:45:24.222892283Z"
