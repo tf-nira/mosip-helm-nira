@@ -129,8 +129,8 @@ resources:
     cpu: 500m
     memory: 2250Mi
   requests:
-    cpu: 100m
-    memory: 1500Mi
+    cpu: 500m
+    memory: 2250Mi
 
 additionalResources:
   ## Specify any JAVA_OPTS string here. These typically will be specified in conjunction with above resources
