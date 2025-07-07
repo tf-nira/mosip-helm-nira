@@ -1,0 +1,19 @@
+apiVersion: v2
+name: k8s-helm-backup
+description: A Helm chart to deploy k8s-helm-backup to test working of MOSIP modules
+type: application
+version: 12.0.1-prod
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - mosip
+  - k8s-helm-backup
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

@@ -1,0 +1,465 @@
+## Global Docker image parameters
+## Please, note that this will override the image parameters, including dependencies, configured to use the global value
+## Current available global Docker image parameters: imageRegistry and imagePullSecrets
+##
+# global:
+#   imageRegistry: myRegistryName
+#   imagePullSecrets:
+#     - myRegistryKeySecretName
+#   storageClass: myStorageClass
+
+## Add labels to all the deployed resources
+##
+commonLabels:
+  app.kubernetes.io/component: mosip
+
+## Add annotations to all the deployed resources
+##
+commonAnnotations: {}
+
+## Kubernetes Cluster Domain
+##
+clusterDomain: cluster.local
+
+## Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+
+## Number of nodes
+##
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  ## loadBalancerIP for the SuiteCRM Service (optional, cloud specific)
+  ## ref: http://kubernetes.io/docs/user-guide/services/#type-loadbalancer
+  ##
+  ## loadBalancerIP:
+  ##
+  ## nodePorts:
+  ##   http: <to set explicitly, choose port between 30000-32767>
+  ##   https: <to set explicitly, choose port between 30000-32767>
+  ##
+  nodePorts:
+    http: ""
+    https: ""
+  ## Enable client source IP preservation
+  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+
+image:
+  registry: docker.io
+  repository: ubuntu
+  tag: '24.10'
+
+  ## Specify a imagePullPolicy
+  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+
+## Port on which this particular spring service module is running.
+springServicePort: 8083
+
+## Configure extra options for liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+##
+
+##
+# existingConfigmap:
+
+## Command and args for running the container (set to default if not set). Use array form
+##
+command: ['/bin/bash']
+args:
+  - '-c'
+  - |
+      # set commands for error handling.
+      set -e
+      set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+      set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+      set -o errtrace  # trace ERR through 'time command' and other functions
+      set -o pipefail  # trace ERR through pipes
+
+      apt-get update
+      apt install git curl jq -y
+      #
+      #
+      curl -LO "https://dl.k8s.io/release/v1.28.1/bin/linux/amd64/kubectl"
+      install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      kubectl version --client
+      #
+      curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      helm version
+      #
+      DATE_LOCATION=/mnt/k8s-helm-backup/$(date +%F)
+      K8S_YAML_LOCATION="$DATE_LOCATION/K8S-YAML-BACKUP"
+      HELM_LOCATION="$DATE_LOCATION/HELM-BACKUP"
+      CONFIG_SERVER_BACKUP_LOCATION="$DATE_LOCATION/CONFIG-SERVER/"
+      #
+      CONFIG_SERVER_GIT_URI=$(kubectl -n config-server get cm config-server-env-vars -o json | jq '.data.SPRING_CLOUD_CONFIG_SERVER_GIT_URI' -r )
+      CONFIG_SERVER_GIT_BRANCH=$(kubectl -n config-server get cm config-server-share -o json | jq '.data.spring_config_label_env' -r )
+      mkdir -p $CONFIG_SERVER_BACKUP_LOCATION
+      cd $CONFIG_SERVER_BACKUP_LOCATION
+      #
+      git clone $CONFIG_SERVER_GIT_URI -b $CONFIG_SERVER_GIT_BRANCH
+      #
+      cd -
+      echo "PWD : $PWD"
+      ls ./
+      #
+      #
+      for NS in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
+      #
+        # HELM YAML BACKUP
+        NS_HELM_LOCATION="$HELM_LOCATION/$NS"
+        for HELM_RESOURCE in $(helm -n $NS list | awk 'NR>1{print $1}'); do
+        echo "HELM RESOURCE $HELM_RESOURCE and Namespace $NS =================== "
+          mkdir -p $NS_HELM_LOCATION
+          helm -n $NS get all $HELM_RESOURCE > $NS_HELM_LOCATION/$HELM_RESOURCE.yaml
+          ls $NS_HELM_LOCATION
+        done
+        #
+        # K8S YAML BACKUP
+        NS_LOCATION="$K8S_YAML_LOCATION/$NS"
+        for RESOURCE in $(kubectl -n $NS get all -o name | grep -vE 'pod|replicaset' && kubectl -n $NS get vs -o name && kubectl -n $NS get gateway -o name); do
+          echo "$RESOURCE ====================== ";
+          read RESOURCE_TYPE RESOURCE_NAME <<< $(echo "$RESOURCE" | awk -F / '{print $1, $2}')
+          RESOURCE_LOCATION="$NS_LOCATION/$RESOURCE_TYPE"
+          mkdir -p $RESOURCE_LOCATION
+          kubectl -n $NS get $RESOURCE_TYPE $RESOURCE_NAME -o yaml > $RESOURCE_LOCATION/$RESOURCE_NAME.yaml
+          ls $RESOURCE_LOCATION/$RESOURCE_NAME.yaml
+          ls $RESOURCE_LOCATION
+        done
+      done
+
+## Deployment pod host aliases
+## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+##
+hostAliases: []
+
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 1000m
+    memory: 3500Mi
+  requests:
+    cpu: 1000m
+    memory: 3500Mi
+
+additionalResources:
+  ## Specify any JAVA_OPTS string here. These typically will be specified in conjunction with above resources
+  ## Example: java_opts: "-Xms500M -Xmx500M"
+  javaOpts: "-Xms2600M -Xmx2600M"
+
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+## Clamav container already runs as 'mosip' user, so we may not need to enable this
+containerSecurityContext:
+  enabled: false
+  runAsUser: mosip
+  runAsNonRoot: true
+
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+##
+podSecurityContext:
+  enabled: false
+  fsGroup: 1001
+
+## Pod affinity preset
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAffinityPreset: ""
+
+## Pod anti-affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
+## Allowed values: soft, hard
+##
+podAntiAffinityPreset: soft
+
+## Node affinity preset
+## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity
+## Allowed values: soft, hard
+##
+nodeAffinityPreset:
+  ## Node affinity type
+  ## Allowed values: soft, hard
+  ##
+  type: ""
+  ## Node label key to match
+  ## E.g.
+  ## key: "kubernetes.io/e2e-az-name"
+  ##
+  key: ""
+  ## Node label values to match
+  ## E.g.
+  ## values:
+  ##   - e2e-az1
+  ##   - e2e-az2
+  ##
+  values: []
+
+## Affinity for pod assignment. Evaluated as a template.
+## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+##
+affinity: {}
+
+## Node labels for pod assignment. Evaluated as a template.
+## ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## Tolerations for pod assignment. Evaluated as a template.
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+##
+tolerations: []
+
+## Pod extra labels
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+##
+podLabels: {}
+
+## Annotations for server pods.
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+podAnnotations: {}
+
+##  pods' priority.
+## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+##
+# priorityClassName: ""
+
+## lifecycleHooks for the  container to automate configuration before or after startup.
+##
+lifecycleHooks: {}
+
+## Custom Liveness probes for
+##
+customLivenessProbe: {}
+
+## Custom Rediness probes
+##
+customReadinessProbe: {}
+
+## "backoff" strategy - It is used when dealing with resources that are retrying or recovering from failures.
+##
+backoffLimit: 0
+
+## Update strategy - only really applicable for deployments with RWO PVs attached
+## If replicas = 1, an update can get "stuck", as the previous pod remains attached to the
+## PV, and the "incoming" pod can never start. Changing the strategy to "Recreate" will
+## terminate the single previous pod, so that the new, incoming pod can attach to the PV
+##
+updateStrategy:
+  type: RollingUpdate
+
+## Additional environment variables to set
+## Example:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+##
+extraEnvVars: []
+
+## ConfigMap with extra environment variables
+##
+extraEnvVarsCM: []
+## Secret with extra environment variables
+##
+extraEnvVarsSecret: []
+
+## Extra volumes to add to the deployment
+##
+extraVolumes: []
+
+## Extra volume mounts to add to the container
+##
+extraVolumeMounts: []
+
+## Add init containers to the  pods.
+## Example:
+## initContainers:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+initContainers:
+#  - command:
+#      - /bin/bash
+#      - -c
+#      - |
+#
+#    env:
+#      - name: ENABLE_INSECURE
+#        value: "true"
+#    envFrom:
+#      - configMapRef:
+#          name: global
+#    image: docker.io/openjdk:11-jre
+#    imagePullPolicy: Always
+#    name: cacerts
+#    resources: {}
+#    securityContext:
+#      runAsUser: 0
+#    terminationMessagePath: /dev/termination-log
+#    terminationMessagePolicy: File
+#    volumeMounts:
+#      - mountPath: /cacerts
+#        name: cacerts
+
+## Add sidecars to the  pods.
+## Example:
+## sidecars:
+##   - name: your-image-name
+##     image: your-image
+##     imagePullPolicy: Always
+##     ports:
+##       - name: portname
+##         containerPort: 1234
+##
+sidecars: {}
+
+persistence:
+  enabled: true
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack).
+  ##
+  # storageClass: "-"
+  ##
+  ## If you want to reuse an existing claim, you can pass the name of the PVC using
+  ## the existingClaim variable
+  # existingClaim: your-claim
+  ## ReadWriteMany not supported by AWS gp2
+  storageClass: 'nfs-csi'
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
+  existingClaim:
+  # Dir where config and keys are written inside container
+  mountDir: '/mnt/k8s-helm-backup/'
+
+## Init containers parameters:
+## volumePermissions: Change the owner and group of the persistent volume mountpoint to runAsUser:fsGroup values from the securityContext section.
+##
+volumePermissions:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/bitnami-shell
+    tag: "10"
+    pullPolicy: IfNotPresent
+    ## Optionally specify an array of imagePullSecrets.
+    ## Secrets must be manually created in the namespace.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+    ##
+    pullSecrets: []
+    ##   - myRegistryKeySecretName
+  ## Init containers' resource requests and limits
+  ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+  ##
+  resources:
+    ## We usually recommend not to specify default resources and to leave this as a conscious
+    ## choice for the user. This also increases chances charts run on environments with little
+    ## resources, such as Minikube. If you do want to specify resources, uncomment the following
+    ## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    ##
+    limits: {}
+    ##   cpu: 100m
+    ##   memory: 128Mi
+    ##
+    requests: {}
+    ##   cpu: 100m
+    ##   memory: 128Mi
+    ##
+
+## Specifies whether RBAC resources should be created
+##
+rbac:
+  create: true
+
+## Specifies whether a ServiceAccount should be created
+##
+serviceAccount:
+  create: true
+  ## The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the fullname template
+  ##
+  name:
+
+## Prometheus Metrics
+##
+metrics:
+  enabled: false
+  ## Prometheus pod annotations
+  ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+  ##
+  podAnnotations:
+    prometheus.io/scrape: "true"
+
+  endpointPath:
+
+  ## Prometheus Service Monitor
+  ## ref: https://github.com/coreos/prometheus-operator
+  ##
+  serviceMonitor:
+    ## If the operator is installed in your cluster, set to true to create a Service Monitor Entry
+    ##
+    enabled: true
+    ## Specify the namespace in which the serviceMonitor resource will be created
+    ##
+    # namespace: ""
+    ## Specify the interval at which metrics should be scraped
+    ##
+    interval: 10s
+    ## Specify the timeout after which the scrape is ended
+    ##
+    # scrapeTimeout: 30s
+    ## Specify Metric Relabellings to add to the scrape endpoint
+    ##
+    # relabellings:
+    ## Specify honorLabels parameter to add the scrape endpoint
+    ##
+    honorLabels: false
+    ## Used to pass Labels that are used by the Prometheus installed in your cluster to select Service Monitors to work with
+    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#prometheusspec
+    ##
+    additionalLabels: {}
+
+  ## Custom PrometheusRule to be defined
+  ## The value is evaluated as a template, so, for example, the value can depend on .Release or .Chart
+  ## ref: https://github.com/coreos/prometheus-operator#customresourcedefinitions
+  ##
+  prometheusRule:
+    enabled: false
+    additionalLabels: {}
+    namespace: ''
+    ## List of rules, used as template by Helm.
+    ## These are just examples rules inspired from https://awesome-prometheus-alerts.grep.to/rules.html
+    # rules:
+    #   - alert: RabbitmqDown
+    #     expr: rabbitmq_up{service="{{ template "rabbitmq.fullname" . }}"} == 0
+    #     for: 5m
+    #     labels:
+    #       severity: error
+    rules: []
+
+crontime: "0 3 * * *"    ## run cronjob every day at 3 AM (time hr: 0-23 )
