@@ -1,0 +1,43 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "k8s-helm-backup.serviceAccountName" . }}-pods-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources:
+    - pods
+    - services
+    - configmaps
+    - secrets
+    - persistentvolumeclaims
+    - namespaces
+    - nodes
+    verbs: ["get", "list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets", "replicasets"]
+    verbs: ["get", "list"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+    verbs: ["get", "list"]
+  - apiGroups: ["autoscaling"]
+    resources: [ "horizontalpodautoscalers" ]
+    verbs: ["get", "list"]
+  - apiGroups: ["storage.k8s.io"]
+    resources:
+      - storageclasses
+      - volumeattachments
+    verbs: ["get", "list"]
+  - apiGroups: ["networking.istio.io"]
+    resources: ['*']
+    verbs: ["get", "list"]
+  - apiGroups: ["security.istio.io"]
+    resources: ['*']
+    verbs: ["get", "list"]
