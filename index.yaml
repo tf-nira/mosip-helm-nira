@@ -1777,6 +1777,29 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/idrepo-saltgen-12.0.1-1.tgz
     version: 12.0.1-1
+  k8s-helm-backup:
+  - apiVersion: v2
+    created: "2025-07-07T11:01:41.927683203Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart to deploy k8s-helm-backup to test working of MOSIP modules
+    digest: 9928379e28b0afdf946cb11f06000d01885ce5b451c3ff4ba74eff683e68e7ab
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - k8s-helm-backup
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: k8s-helm-backup
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/k8s-helm-backup-12.0.1-prod.tgz
+    version: 12.0.1-prod
   kafka-ui:
   - apiVersion: v2
     appVersion: v0.4.0
@@ -6207,4 +6230,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-04-24T07:53:01.472239806Z"
+generated: "2025-07-07T11:01:41.925988247Z"
