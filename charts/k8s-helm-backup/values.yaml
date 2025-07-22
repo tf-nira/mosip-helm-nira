@@ -104,11 +104,11 @@ args:
       echo "CONFIG_SERVER_GIT_BRANCH = $CONFIG_SERVER_GIT_BRANCH";
       CONFIG_SERVER_GIT_USERNAME=$(kubectl -n config-server get cm config-server-env-vars -o json | jq '.data.SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME' -r);
       echo "CONFIG_SERVER_GIT_USERNAME = $CONFIG_SERVER_GIT_USERNAME";
-      
+      #
       CONFIG_SERVER_GIT_TOKEN=$(kubectl -n config-server get secret config-server -o json | jq -r '.data["github-token"]')
       echo "Before IF condition: CONFIG_SERVER_GIT_TOKEN = $CONFIG_SERVER_GIT_TOKEN"
       if [[ -n "$CONFIG_SERVER_GIT_TOKEN" && "$CONFIG_SERVER_GIT_TOKEN" != "null" ]]; then
-        CONFIG_SERVER_GIT_TOKEN=$(echo "$ENCODED_TOKEN" | base64 --decode)
+        CONFIG_SERVER_GIT_TOKEN=$(echo "$CONFIG_SERVER_GIT_TOKEN" | base64 --decode)
       else
         CONFIG_SERVER_GIT_TOKEN=""
       fi
