@@ -51,8 +51,8 @@ service:
 
 image:
   registry: docker.io
-  repository: ubuntu
-  tag: '24.10'
+  repository: niraqa/ubuntu-kubectl-helm
+  tag: latest
 
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -78,67 +78,78 @@ springServicePort: 8083
 
 ## Command and args for running the container (set to default if not set). Use array form
 ##
+## helm -n k8s-helm-backup install k8s-helm-backup niragit/k8s-helm-backup --create-namespace --version 12.0.1-prod  --set-string crontime="0 0 * * *"
 command: ['/bin/bash']
 args:
   - '-c'
   - |
       # set commands for error handling.
-      set -e
-      set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
-      set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
-      set -o errtrace  # trace ERR through 'time command' and other functions
-      set -o pipefail  # trace ERR through pipes
-
-      apt-get update
-      apt install git curl jq -y
+      set -e;
+      set -o errexit;    # set -e : exit the script if any statement returns a non-true return value;
+      set -o nounset;    # set -u : exit the script if you try to use an uninitialised variable;
+      set -o errtrace;   # trace ERR through 'time command' and other functions;
+      set -o pipefail;   # trace ERR through pipes;
       #
+      kubectl version --client;
+      helm version;
       #
-      curl -LO "https://dl.k8s.io/release/v1.28.1/bin/linux/amd64/kubectl"
-      install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-      kubectl version --client
+      DATE_LOCATION=/mnt/k8s-helm-backup/$(date +%F);
+      K8S_YAML_LOCATION="$DATE_LOCATION/K8S-YAML-BACKUP";
+      HELM_LOCATION="$DATE_LOCATION/HELM-BACKUP";
+      CONFIG_SERVER_BACKUP_LOCATION="$DATE_LOCATION/CONFIG-SERVER/";
       #
-      curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-      helm version
+      CONFIG_SERVER_GIT_URI=$(kubectl -n config-server get cm config-server-env-vars -o json | jq '.data.SPRING_CLOUD_CONFIG_SERVER_GIT_URI' -r );
+      echo "CONFIG_SERVER_GIT_URI = $CONFIG_SERVER_GIT_URI";
+      CONFIG_SERVER_GIT_BRANCH=$(kubectl -n config-server get cm config-server-share -o json | jq '.data.spring_config_label_env' -r );
+      echo "CONFIG_SERVER_GIT_BRANCH = $CONFIG_SERVER_GIT_BRANCH";
+      CONFIG_SERVER_GIT_USERNAME=$(kubectl -n config-server get cm config-server-env-vars -o json | jq '.data.SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME' -r);
+      echo "CONFIG_SERVER_GIT_USERNAME = $CONFIG_SERVER_GIT_USERNAME";
+      
+      CONFIG_SERVER_GIT_TOKEN=$(kubectl -n config-server get secret config-server -o json | jq -r '.data["github-token"]')
+      echo "Before IF condition: CONFIG_SERVER_GIT_TOKEN = $CONFIG_SERVER_GIT_TOKEN"
+      if [[ -n "$CONFIG_SERVER_GIT_TOKEN" && "$CONFIG_SERVER_GIT_TOKEN" != "null" ]]; then
+        CONFIG_SERVER_GIT_TOKEN=$(echo "$ENCODED_TOKEN" | base64 --decode)
+      else
+        CONFIG_SERVER_GIT_TOKEN=""
+      fi
+      echo "CONFIG_SERVER_GIT_TOKEN = $CONFIG_SERVER_GIT_TOKEN";
       #
-      DATE_LOCATION=/mnt/k8s-helm-backup/$(date +%F)
-      K8S_YAML_LOCATION="$DATE_LOCATION/K8S-YAML-BACKUP"
-      HELM_LOCATION="$DATE_LOCATION/HELM-BACKUP"
-      CONFIG_SERVER_BACKUP_LOCATION="$DATE_LOCATION/CONFIG-SERVER/"
+      if [[ ! -z $CONFIG_SERVER_GIT_USERNAME || ! -z $CONFIG_SERVER_GIT_TOKEN ]]; then
+         CONFIG_SERVER_GIT_URI=$(  echo $CONFIG_SERVER_GIT_URI | sed "s/github/$CONFIG_SERVER_GIT_USERNAME:$CONFIG_SERVER_GIT_TOKEN@github/g" );
+      fi;
       #
-      CONFIG_SERVER_GIT_URI=$(kubectl -n config-server get cm config-server-env-vars -o json | jq '.data.SPRING_CLOUD_CONFIG_SERVER_GIT_URI' -r )
-      CONFIG_SERVER_GIT_BRANCH=$(kubectl -n config-server get cm config-server-share -o json | jq '.data.spring_config_label_env' -r )
-      mkdir -p $CONFIG_SERVER_BACKUP_LOCATION
-      cd $CONFIG_SERVER_BACKUP_LOCATION
+      mkdir -p $CONFIG_SERVER_BACKUP_LOCATION;
+      cd $CONFIG_SERVER_BACKUP_LOCATION;
       #
-      git clone $CONFIG_SERVER_GIT_URI -b $CONFIG_SERVER_GIT_BRANCH
+      git clone $CONFIG_SERVER_GIT_URI -b $CONFIG_SERVER_GIT_BRANCH;
       #
-      cd -
-      echo "PWD : $PWD"
-      ls ./
+      cd -;
+      echo "PWD : $PWD";
+      ls ./;
       #
       #
       for NS in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
       #
         # HELM YAML BACKUP
-        NS_HELM_LOCATION="$HELM_LOCATION/$NS"
+        NS_HELM_LOCATION="$HELM_LOCATION/$NS";
         for HELM_RESOURCE in $(helm -n $NS list | awk 'NR>1{print $1}'); do
-        echo "HELM RESOURCE $HELM_RESOURCE and Namespace $NS =================== "
-          mkdir -p $NS_HELM_LOCATION
-          helm -n $NS get all $HELM_RESOURCE > $NS_HELM_LOCATION/$HELM_RESOURCE.yaml
-          ls $NS_HELM_LOCATION
+          echo "HELM RESOURCE $HELM_RESOURCE and Namespace $NS =================== ";
+          mkdir -p $NS_HELM_LOCATION;
+          helm -n $NS get all $HELM_RESOURCE > $NS_HELM_LOCATION/$HELM_RESOURCE.yaml;
+          ls $NS_HELM_LOCATION;
         done
         #
         # K8S YAML BACKUP
-        NS_LOCATION="$K8S_YAML_LOCATION/$NS"
+        NS_LOCATION="$K8S_YAML_LOCATION/$NS";
         for RESOURCE in $(kubectl -n $NS get all -o name | grep -vE 'pod|replicaset' && kubectl -n $NS get vs -o name && kubectl -n $NS get gateway -o name); do
           echo "$RESOURCE ====================== ";
-          read RESOURCE_TYPE RESOURCE_NAME <<< $(echo "$RESOURCE" | awk -F / '{print $1, $2}')
-          RESOURCE_LOCATION="$NS_LOCATION/$RESOURCE_TYPE"
-          mkdir -p $RESOURCE_LOCATION
-          kubectl -n $NS get $RESOURCE_TYPE $RESOURCE_NAME -o yaml > $RESOURCE_LOCATION/$RESOURCE_NAME.yaml
-          ls $RESOURCE_LOCATION/$RESOURCE_NAME.yaml
-          ls $RESOURCE_LOCATION
-        done
+          read RESOURCE_TYPE RESOURCE_NAME <<< $(echo "$RESOURCE" | awk -F / '{print $1, $2}');
+          RESOURCE_LOCATION="$NS_LOCATION/$RESOURCE_TYPE";
+          mkdir -p $RESOURCE_LOCATION;
+          kubectl -n $NS get $RESOURCE_TYPE $RESOURCE_NAME -o yaml > $RESOURCE_LOCATION/$RESOURCE_NAME.yaml;
+          ls $RESOURCE_LOCATION/$RESOURCE_NAME.yaml;
+          ls $RESOURCE_LOCATION;
+        done;
       done
 
 ## Deployment pod host aliases
@@ -349,7 +360,7 @@ persistence:
   ## the existingClaim variable
   # existingClaim: your-claim
   ## ReadWriteMany not supported by AWS gp2
-  storageClass: 'nfs-csi'
+  storageClass:
   accessModes:
     - ReadWriteOnce
   size: 5Gi
@@ -364,14 +375,15 @@ volumePermissions:
   enabled: true
   image:
     registry: docker.io
-    repository: bitnami/bitnami-shell
-    tag: "10"
+    repository: niraqa/ubuntu-kubectl-helm
+    tag: latest
     pullPolicy: IfNotPresent
     ## Optionally specify an array of imagePullSecrets.
     ## Secrets must be manually created in the namespace.
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
     ##
-    pullSecrets: []
+    pullSecrets:
+    - docker-registry-secret
     ##   - myRegistryKeySecretName
   ## Init containers' resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
