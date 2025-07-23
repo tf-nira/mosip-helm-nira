@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    meta.helm.sh/release-name: k8s-helm-backup-pv
+    meta.helm.sh/release-namespace: k8s-helm-backup
+  labels:
+    app.kubernetes.io/component: mosip
+    app.kubernetes.io/instance: k8s-helm-backup-pv
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-helm-backup-pv
+    helm.sh/chart: k8s-helm-backup-12.0.1-prod
+    name: k8s-helm-backup-pv
+  name: k8s-helm-backup-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 5Gi
+  #claimRef:
+  #  apiVersion: v1
+  #  kind: PersistentVolumeClaim
+  #  name: k8s-helm-backup-pv
+  #  namespace: k8s-helm-backup
+  nfs:
+    path: /mosip-regproc-grp1-landing-zone/k8s-helm-backup
+    server: 172.16.119.11
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    meta.helm.sh/release-name: k8s-helm-backup
+    meta.helm.sh/release-namespace: k8s-helm-backup
+    #pv.kubernetes.io/bind-completed: "yes"
+  labels:
+    app.kubernetes.io/component: mosip
+    app.kubernetes.io/instance: k8s-helm-backup
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-helm-backup
+    helm.sh/chart: k8s-helm-backup-12.0.1-prod
+  name: k8s-helm-backup-pvc
+  namespace: k8s-helm-backup
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  selector:
+    matchLabels:
+      name: k8s-helm-backup-pv
+  storageClassName: ""
+  volumeMode: Filesystem
+  volumeName: k8s-helm-backup-pv
