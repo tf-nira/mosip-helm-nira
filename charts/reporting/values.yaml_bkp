@@ -195,3 +195,4 @@ bitnami-elasticsearch:
     fullnameOverride: kibana
     persistence:
       enabled: false
+
