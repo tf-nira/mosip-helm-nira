@@ -15,7 +15,6 @@ debezium_connectors:
   image: technoforte2023/debezium-init
   imageTag: tf_nira_dev
   imagePullPolicy: Always
-
   enabled: true
   existingConfigMap: null
   delay_between_connectors: "0s"

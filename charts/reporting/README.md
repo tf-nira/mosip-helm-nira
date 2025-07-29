@@ -16,4 +16,3 @@ This helm chart contains the following subcharts and they can be individually co
 - Debezium Kafka Connector
 - Elasticsearch Kafka Connector
 - A KafkaClient Pod for monitoring kafka topics, and making connect api calls
-
