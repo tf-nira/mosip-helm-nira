@@ -11,6 +11,7 @@ base:
   es_url: http://elasticsearch-master.cattle-logging-system:9200
   kibana_url: http://kibana.cattle-logging-system:5601
 
+
 debezium_connectors:
   image: technoforte2023/debezium-init
   imageTag: tf_nira_dev
