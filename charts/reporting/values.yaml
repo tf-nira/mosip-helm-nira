@@ -109,6 +109,8 @@ bitnami-kafka:
   fullnameOverride: kafka
   enabled: true
   replicaCount: 4
+  kraft:
+    enabled: false
   persistence:
     enabled: false
   zookeeper:
