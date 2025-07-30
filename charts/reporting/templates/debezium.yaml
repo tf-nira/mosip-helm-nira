@@ -16,6 +16,9 @@ spec:
       labels:
         app: debezium
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
       - name: debezium-container
         image: {{ .Values.debezium.image }}

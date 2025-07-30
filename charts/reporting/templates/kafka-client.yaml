@@ -4,6 +4,9 @@ kind: Pod
 metadata:
   name: kafka-client
 spec:
+  {{- if .Values.nodeSelector }}
+  nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+  {{- end }}
   containers:
   - name: kafka-client
     image: {{ .Values.kafkaClient.image }}
