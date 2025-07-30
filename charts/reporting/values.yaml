@@ -171,7 +171,7 @@ confluentinc:
     customEnv: {}
 
 bitnami-elasticsearch:
-  enabled: true
+  enabled: false
   global:
     kibanaEnabled: true
   data:
