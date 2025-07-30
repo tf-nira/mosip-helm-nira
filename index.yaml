@@ -1779,7 +1779,7 @@ entries:
     version: 12.0.1-1
   k8s-helm-backup:
   - apiVersion: v2
-    created: "2025-07-22T11:55:57.121672555Z"
+    created: "2025-07-30T10:03:14.689633094Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1787,7 +1787,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart to deploy k8s-helm-backup to test working of MOSIP modules
-    digest: 5ed0307ad4f47a3d4948c705572067616b702b7bb7c037fb2a68fdd2443aa636
+    digest: df41940c636cd629d002e57bbcead79ba4a362ca3f1d35d2fe5f03824b6f4f58
     home: https://mosip.io
     keywords:
     - mosip
@@ -5461,6 +5461,29 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/reporting-12.0.1.tgz
     version: 12.0.1
+  - apiVersion: v2
+    created: "2025-07-30T10:03:14.700286064Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    - alias: bitnami-elasticsearch
+      condition: bitnami-elasticsearch.enabled
+      name: elasticsearch
+      repository: https://charts.bitnami.com/bitnami
+      version: '>= 17.0.0'
+    description: A Helm chart for MOSIP Reporting module.
+    digest: 25bfd36a0eb6119a8e1644a92aa36c8fdf71807758f281447c42776ec7354218
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: reporting
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/reporting-0.0.1-develop.tgz
+    version: 0.0.1-develop
   reporting-init:
   - apiVersion: v2
     created: "2024-05-27T14:08:54.333119923+03:00"
@@ -5474,6 +5497,18 @@ entries:
     urls:
     - https://niragit.github.io/mosip-helm/reporting-init-12.0.1.tgz
     version: 12.0.1
+  - apiVersion: v2
+    created: "2025-07-30T10:03:14.700635235Z"
+    description: A Helm chart for MOSIP Reporting Initialization.
+    digest: c0cf4874193f7398fd0d1666583e72a1c1090eef3bc55a89298229507836b3cc
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: reporting-init
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/reporting-init-0.0.1-develop.tgz
+    version: 0.0.1-develop
   resident:
   - apiVersion: v2
     created: "2024-05-27T14:08:54.338050698+03:00"
@@ -6230,4 +6265,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-07-22T11:55:57.118881045Z"
+generated: "2025-07-30T10:03:14.687910211Z"
