@@ -17,7 +17,7 @@ spec:
         app: debezium
     spec:
       {{- if .Values.debezium.nodeSelector }}
-      nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.debezium.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       containers:
       - name: debezium-container

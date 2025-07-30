@@ -5,7 +5,7 @@ metadata:
   name: kafka-client
 spec:
   {{- if .Values.kafkaClient.nodeSelector }}
-  nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+  nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.kafkaClient.nodeSelector "context" $) | nindent 8 }}
   {{- end }}
   containers:
   - name: kafka-client
