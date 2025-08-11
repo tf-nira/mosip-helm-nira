@@ -4873,6 +4873,30 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/regproc-group9-12.0.1-pre-production.tgz
     version: 12.0.1-pre-production
+  regproc-group10:
+  - apiVersion: v2
+    created: "2025-08-11T08:18:21.717487174Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: A Helm chart for MOSIP Registration Processor Group 5
+    digest: 97579892a0d23e276474fcb9fcf0c260f1a4c02ff704050904f9aec4813b7afd
+    home: https://mosip.io
+    keywords:
+    - mosip
+    - regproc-group10
+    - regproc
+    maintainers:
+    - email: info@mosip.io
+      name: MOSIP
+    name: regproc-group10
+    type: application
+    urls:
+    - https://tf-nira.github.io/mosip-helm-nira/regproc-group10-12.0.1-pre-production.tgz
+    version: 12.0.1-pre-production
   regproc-notifier:
   - apiVersion: v2
     created: "2024-05-27T14:08:54.290943147+03:00"
@@ -6265,4 +6289,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2025-07-30T10:21:41.798384694Z"
+generated: "2025-08-11T08:18:21.715768746Z"
