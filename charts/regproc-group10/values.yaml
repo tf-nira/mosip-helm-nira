@@ -58,7 +58,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -76,7 +76,7 @@ startupProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health,http:///localhost:9003/registrationprocessor/v1/legacy-data/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -89,7 +89,7 @@ livenessProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health,http:///localhost:9003/registrationprocessor/v1/legacy-data/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 20
   periodSeconds: 30
   timeoutSeconds: 5
@@ -102,7 +102,7 @@ readinessProbe:
     command:
     - /bin/bash
     - -c
-    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
+    - MY_PROBE_CHECK_PATHS="http:///localhost:9002/registrationprocessor/v1/legacy-data-validator/actuator/health,http:///localhost:9003/registrationprocessor/v1/legacy-data/actuator/health"; i=1; for str in $(echo $MY_PROBE_CHECK_PATHS | sed "s/,/\n/g"); do curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; if ! [ "$curl_output" = "200" ]; then echo "$str failed with status code $curl_output" >> /dev/stderr && exit $i; fi; ((i++)); done
   initialDelaySeconds: 0
   periodSeconds: 10
   timeoutSeconds: 5
@@ -377,6 +377,10 @@ metrics:
       port_name: legacy-data-validator
       port: 9002
       targetPort: 9002
+    - endpointPath: '/registrationprocessor/v1/legacy-data/actuator/prometheus'
+      port_name: legacy-data
+      port: 9003
+      targetPort: 9003
 
 
   ## Prometheus Service Monitor
