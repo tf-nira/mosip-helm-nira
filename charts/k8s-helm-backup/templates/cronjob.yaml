@@ -15,8 +15,8 @@ metadata:
 spec:
   suspend: false
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 1  # remove jobs which are successfully executed
-  failedJobsHistoryLimit: 1      # except 1 recent failed job, remove jobs which are not successfully executed
+  successfulJobsHistoryLimit: 60  # remove jobs which are successfully executed
+  failedJobsHistoryLimit: 60      # except 1 recent failed job, remove jobs which are not successfully executed
   #schedule: '*/3 * * * *' # cron spec of time
   schedule: {{ .Values.crontime }}
   jobTemplate:
@@ -28,6 +28,9 @@ spec:
       # "waiting for rollout" variant specified below
       template:
         spec:
+          {{ - if .Values.nodeSelector }}
+          nodeSelector: {{ - include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+          {{ - end }}
           # account configured above
           serviceAccountName: {{ template "k8s-helm-backup.serviceAccountName" $ }}
           restartPolicy: Never
