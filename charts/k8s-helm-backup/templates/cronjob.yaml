@@ -29,7 +29,7 @@ spec:
       template:
         spec:
           {{- if .Values.nodeSelector }}
-          nodeSelector: {{ - include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+          nodeSelector: {{- include "common.tplvalues.render" ( dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
           {{- end }}
           # account configured above
           serviceAccountName: {{ template "k8s-helm-backup.serviceAccountName" $ }}
