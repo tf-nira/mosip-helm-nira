@@ -128,6 +128,10 @@ args:
       ls ./;
       #
       #
+      # Create k8s-yaml directory and K8S PV YAML BACKUP
+      mkdir -p $K8S_YAML_LOCATION
+      kubectl get pv -o yaml > $K8S_YAML_LOCATION/all-pv.yaml
+      #
       for NS in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
       #
         # HELM YAML BACKUP
@@ -141,7 +145,7 @@ args:
         #
         # K8S YAML BACKUP
         NS_LOCATION="$K8S_YAML_LOCATION/$NS";
-        for RESOURCE in $(kubectl -n $NS get all -o name | grep -vE 'pod|replicaset' && kubectl -n $NS get vs -o name && kubectl -n $NS get gateway -o name); do
+        for RESOURCE in $(kubectl -n $NS get all -o name | grep -vE '^pod|replicaset' && kubectl -n $NS get vs -o name && kubectl -n $NS get gateway -o name && kubectl -n $NS get cm -o name && kubectl -n $NS get secrets -o name && kubectl -n $NS get pvc -o name); do
           echo "$RESOURCE ====================== ";
           read RESOURCE_TYPE RESOURCE_NAME <<< $(echo "$RESOURCE" | awk -F / '{print $1, $2}');
           RESOURCE_LOCATION="$NS_LOCATION/$RESOURCE_TYPE";
