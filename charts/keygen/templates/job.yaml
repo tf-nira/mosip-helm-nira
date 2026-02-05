@@ -80,3 +80,17 @@ spec:
             - secretRef:
                 name: {{ include "common.tplvalues.render" (dict "value" .Values.extraEnvVarsSecret "context" $) }}
             {{- end }}
+
+          volumeMounts:
+            - mountPath: /opt/nfast/kmdata/local
+              name: kmdata-local
+            - mountPath: /opt/nfast/sockets
+              name: socket1
+      volumes:
+      - name: kmdata-local
+        persistentVolumeClaim:
+          claimName: pvc-kmdata-ida-new
+      - hostPath:
+          path: /opt/ncipher/socket
+          type: DirectoryOrCreate
+        name: socket1     
