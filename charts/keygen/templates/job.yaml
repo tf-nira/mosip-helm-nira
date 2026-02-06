@@ -89,7 +89,7 @@ spec:
       volumes:
       - name: kmdata-local
         persistentVolumeClaim:
-          claimName: pvc-kmdata-keymgr-new
+          claimName: pvc-kmdata-ida
       - hostPath:
           path: /opt/ncipher/socket
           type: DirectoryOrCreate
