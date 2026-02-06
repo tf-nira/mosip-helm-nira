@@ -1949,7 +1949,7 @@ entries:
     - https://niragit.github.io/mosip-helm/keygen-12.0.1.tgz
     version: 12.0.1
   - apiVersion: v2
-    created: "2026-02-06T03:32:55.790634282Z"
+    created: "2026-02-06T03:56:26.421483275Z"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -1957,7 +1957,7 @@ entries:
       - bitnami-common
       version: 1.x.x
     description: A Helm chart to generate keys
-    digest: 83856a4f3d5bde5e339cb237cfcf10df5cbc431b09420cc8e86d4a43987d87e7
+    digest: 9455e8d36cf9e223c25fd7e0a35e7ebef334fb8ffa26db66e1a1ccd45c18193f
     home: https://mosip.io
     keywords:
     - mosip
@@ -6289,4 +6289,4 @@ entries:
     urls:
     - https://tf-nira.github.io/mosip-helm-nira/websub-consolidator-12.0.1-1.tgz
     version: 12.0.1-1
-generated: "2026-02-06T03:32:55.789292116Z"
+generated: "2026-02-06T03:56:26.418885512Z"
