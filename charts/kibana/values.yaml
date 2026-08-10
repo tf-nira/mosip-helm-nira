@@ -546,7 +546,7 @@ elasticsearch:
     auth:
       ## @param elasticsearch.security.auth.enabled Set to 'true' if Elasticsearch has authentication enabled
       ##
-      enabled: false
+      enabled: true
       ## @param elasticsearch.security.auth.kibanaUsername Kibana server user to authenticate with Elasticsearch
       ##
       kibanaUsername: "elastic"
@@ -559,7 +559,7 @@ elasticsearch:
     tls:
       ## @param elasticsearch.security.tls.enabled Set to 'true' if Elasticsearch API uses TLS/SSL (HTTPS)
       ##
-      enabled: false
+      enabled: true
       ## @param elasticsearch.security.tls.verificationMode Verification mode for SSL communications.
       ## Supported values: full, certificate, none.
       ## Ref: https://www.elastic.co/guide/en/kibana/7.x/settings.html#elasticsearch-ssl-verificationmode
